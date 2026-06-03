@@ -1,0 +1,16 @@
+{
+  "clubId": "britsport",
+  "memberTypes": [
+    {
+      "id": "8FE4113D4E4020E0DCF887803A886981",
+      "name": "Active Member"
+    },
+    {
+      "id": "4237C55C5CC3B4B082CBF2540612778E",
+      "name": "Social Member"
+    }
+  ],
+  "formId": "B171388180BC457D9887AD92B6CCFC86",
+  "title": "Coding camp summer 2025",
+  "registrationOpens": "2024-12-16T00:00:00Z"
+}
