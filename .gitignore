@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# SQLite databases
+*.db
+
+# Editor directories
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Environment files
+.env
+.env*.local
