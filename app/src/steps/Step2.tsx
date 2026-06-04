@@ -40,9 +40,13 @@ export function Step2({
           id="phone"
           type="tel"
           required
+          inputMode="numeric"
+          pattern="[+0-9]+"
           className={styles.input}
           value={formData?.phone ?? ""}
-          onChange={(e) => updateFormHandler({ phone: e.target.value })}
+          onChange={(e) =>
+            updateFormHandler({ phone: e.target.value.replace(/[^+0-9]/g, "") })
+          }
         />
       </div>
 
