@@ -37,6 +37,27 @@
   cursor: not-allowed;
 }
 
+.stepIndicator {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.stepCircle {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.activeStep {
+  background: #2563eb;
+  color: #fff;
+}
+
 @media (max-width: 768px) {
   .card {
     display: flex;

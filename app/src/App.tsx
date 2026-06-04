@@ -1,12 +1,14 @@
 import { useState } from "react";
-import type { FormDetails } from "./types/form";
+import type { FormDetails, Steps } from "./types";
 import styles from "./App.module.css";
 import mockData from "../mockData.json";
 import { Loader } from "lucide-react";
+import { STEPS } from "./constants";
+import { clsx } from "clsx";
 
 export default function App() {
   const [formConfig] = useState<FormDetails>(mockData as FormDetails);
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState<Steps>(STEPS.FORM_DETAILS);
 
   if (!formConfig)
     return (
@@ -30,27 +32,45 @@ export default function App() {
     <div className={styles.card}>
       <h2>{formConfig.title}</h2>
 
+      <div className={styles.stepIndicator}>
+        {Object.values(STEPS).map((step) => (
+          <div
+            key={step}
+            className={clsx(
+              styles.stepCircle,
+              currentStep >= step && styles.activeStep,
+            )}
+          >
+            {step}
+          </div>
+        ))}
+      </div>
+
       <form
         className={styles.form}
         onSubmit={() => console.log("Submit form data")}
       >
-        {currentStep === 1 && <div>Step 1</div>}
+        {currentStep === STEPS.FORM_DETAILS && <div>Step 1</div>}
 
-        {currentStep === 2 && <div>Step 2</div>}
+        {currentStep === STEPS.USER_INFO && <div>Step 2</div>}
 
-        {currentStep === 3 && <div>Step 3</div>}
+        {currentStep === STEPS.PREVIEW && <div>Step 3</div>}
 
         <div className={styles.buttonContainer}>
           <button
             type="button"
             className={styles.button}
-            disabled={currentStep === 1}
-            onClick={() => setCurrentStep((prev) => prev - 1)}
+            disabled={currentStep === STEPS.FORM_DETAILS}
+            onClick={() =>
+              setCurrentStep((prev) =>
+                prev > STEPS.FORM_DETAILS ? ((prev - 1) as Steps) : prev,
+              )
+            }
           >
             Back
           </button>
-          <button type="submit" className={styles.button}>
-            {currentStep === 3 ? "Submit" : "Next"}
+          <button type="button" className={styles.button}>
+            {currentStep === STEPS.PREVIEW ? "Submit" : "Next"}
           </button>
         </div>
       </form>
