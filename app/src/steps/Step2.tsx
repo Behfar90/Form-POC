@@ -1,4 +1,5 @@
 import type { FormSubmissionData } from "../types";
+import { convertDateToISO } from "../utils";
 import styles from "./Step2.module.css";
 
 export function Step2({
@@ -58,8 +59,10 @@ export function Step2({
           required
           max={new Date().toISOString().split("T")[0]}
           className={styles.input}
-          value={formData?.birthDate ?? ""}
-          onChange={(e) => updateFormHandler({ birthDate: e.target.value })}
+          value={formData?.birthDate?.split("T")[0] ?? ""}
+          onChange={(e) =>
+            updateFormHandler({ birthDate: convertDateToISO(e.target.value) })
+          }
         />
       </div>
     </div>

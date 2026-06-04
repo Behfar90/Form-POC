@@ -1,4 +1,5 @@
 import type { FormSubmissionData } from "../types";
+import { convertToLocaleDate } from "../utils";
 import styles from "./Step3.module.css";
 
 export function Step3({ formData }: { formData: Partial<FormSubmissionData> }) {
@@ -24,7 +25,9 @@ export function Step3({ formData }: { formData: Partial<FormSubmissionData> }) {
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Date of Birth</span>
-        <span className={styles.value}>{formData.birthDate}</span>
+        <span className={styles.value}>
+          {formData.birthDate ? convertToLocaleDate(formData.birthDate) : ""}
+        </span>
       </div>
     </div>
   );
