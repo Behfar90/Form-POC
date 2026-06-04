@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
 	_ "api/db"
+	"api/handlers"
 )
 
 func main() {
@@ -18,7 +19,7 @@ func main() {
 		AllowMethods: "GET, POST",
 	}))
 
-	// route handlers here
+	app.Get("/form-details", handlers.GetFormDetails)
 
 	log.Fatal(app.Listen(":8080"))
 }
