@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { FormDetails, Steps } from "./types";
+import type { FormDetails, Steps, FormSubmissionData } from "./types";
 import styles from "./App.module.css";
 import mockData from "../mockData.json";
 import { Loader } from "lucide-react";
@@ -10,6 +10,14 @@ import { Step1 } from "./steps";
 export default function App() {
   const [formConfig] = useState<FormDetails>(mockData as FormDetails);
   const [currentStep, setCurrentStep] = useState<Steps>(STEPS.FORM_DETAILS);
+  const [formSubmissionData, setFormSubmissionData] =
+    useState<FormSubmissionData | null>(null);
+
+  const updateFormData = (data: Partial<FormSubmissionData>) => {
+    setFormSubmissionData(
+      (prev) => ({ ...prev, ...data }) as FormSubmissionData,
+    );
+  };
 
   if (!formConfig)
     return (
@@ -52,7 +60,7 @@ export default function App() {
         onSubmit={() => console.log("Submit form data")}
       >
         {currentStep === STEPS.FORM_DETAILS && (
-          <Step1 formConfig={formConfig} />
+          <Step1 formConfig={formConfig} updateFormHandler={updateFormData} />
         )}
 
         {currentStep === STEPS.USER_INFO && <div>Step 2</div>}
