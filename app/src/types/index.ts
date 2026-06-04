@@ -24,4 +24,6 @@ export interface FormSubmissionData {
   submittedAt: string;
 }
 
+export type UserFormEntries = Omit<FormSubmissionData, "formId" | "submittedAt">;
+
 export type SubmitStatus = (typeof SUBMIT_STATUS)[keyof typeof SUBMIT_STATUS];

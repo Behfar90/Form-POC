@@ -1,4 +1,4 @@
-import type { FormDetails, FormSubmissionData } from "../types";
+import type { FormDetails, UserFormEntries } from "../types";
 import { FormDescription } from "../constants";
 import styles from "./Step1.module.css";
 
@@ -8,8 +8,8 @@ export function Step1({
   membershipId,
 }: {
   formConfig: FormDetails;
-  updateFormHandler: (data: Partial<FormSubmissionData>) => void;
-  membershipId?: FormSubmissionData["memberTypeId"];
+  updateFormHandler: (data: Partial<UserFormEntries>) => void;
+  membershipId?: UserFormEntries["memberTypeId"];
 }) {
   return (
     <div className={styles.formGrid}>

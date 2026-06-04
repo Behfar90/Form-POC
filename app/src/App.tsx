@@ -3,6 +3,7 @@ import type {
   FormDetails,
   Steps,
   FormSubmissionData,
+  UserFormEntries,
   SubmitStatus,
 } from "./types";
 import styles from "./App.module.css";
@@ -16,21 +17,20 @@ import { getFormDetails, submitForm } from "./api";
 export default function App() {
   const [formConfig, setFormConfig] = useState<FormDetails | null>(null);
   const [currentStep, setCurrentStep] = useState<Steps>(STEPS.FORM_DETAILS);
-  const [formSubmissionData, setFormSubmissionData] =
-    useState<Partial<FormSubmissionData> | null>(null);
+  const [formEntries, setFormEntries] =
+    useState<Partial<UserFormEntries> | null>(null);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(
     SUBMIT_STATUS.IDLE,
   );
 
-  const updateFormData = (data: Partial<FormSubmissionData>) => {
-    setFormSubmissionData((prev) => ({ ...prev, ...data }));
+  const updateFormData = (data: Partial<UserFormEntries>) => {
+    setFormEntries((prev) => ({ ...prev, ...data }));
   };
 
   useEffect(() => {
     getFormDetails()
       .then((data) => {
         setFormConfig(data);
-        updateFormData({ formId: data.formId });
       })
       .catch((err) => {
         console.error("Failed to fetch form details:", err);
@@ -39,9 +39,10 @@ export default function App() {
 
   const handleSubmit = () => {
     if (currentStep === STEPS.PREVIEW) {
-      if (!isFormComplete(formSubmissionData)) return;
-      const payload = {
-        ...formSubmissionData,
+      if (!isFormComplete(formEntries) || !formConfig) return;
+      const payload: FormSubmissionData = {
+        ...formEntries,
+        formId: formConfig.formId,
         submittedAt: new Date().toISOString(),
       };
       submitForm(payload)
@@ -58,11 +59,10 @@ export default function App() {
   };
 
   const isFormComplete = (
-    data: Partial<FormSubmissionData> | null,
-  ): data is FormSubmissionData =>
+    data: Partial<UserFormEntries> | null,
+  ): data is UserFormEntries =>
     !!(
       data &&
-      data.formId &&
       data.memberTypeId &&
       data.name &&
       data.email &&
@@ -137,20 +137,20 @@ export default function App() {
             <Step1
               formConfig={formConfig}
               updateFormHandler={updateFormData}
-              membershipId={formSubmissionData?.memberTypeId}
+              membershipId={formEntries?.memberTypeId}
             />
           )}
 
           {currentStep === STEPS.USER_INFO && (
             <Step2
-              formData={formSubmissionData}
+              formData={formEntries}
               updateFormHandler={updateFormData}
             />
           )}
 
           {currentStep === STEPS.PREVIEW && (
             <Step3
-              formData={formSubmissionData}
+              formData={formEntries}
               memberTypes={formConfig.memberTypes}
             />
           )}

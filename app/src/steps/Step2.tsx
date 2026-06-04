@@ -1,4 +1,4 @@
-import type { FormSubmissionData } from "../types";
+import type { UserFormEntries } from "../types";
 import { convertDateToISO } from "../utils";
 import styles from "./Step2.module.css";
 
@@ -6,8 +6,8 @@ export function Step2({
   formData,
   updateFormHandler,
 }: {
-  formData: Partial<FormSubmissionData> | null;
-  updateFormHandler: (data: Partial<FormSubmissionData>) => void;
+  formData: Partial<UserFormEntries> | null;
+  updateFormHandler: (data: Partial<UserFormEntries>) => void;
 }) {
   return (
     <div className={styles.formGrid}>

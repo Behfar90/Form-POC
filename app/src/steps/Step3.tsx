@@ -1,4 +1,4 @@
-import type { FormSubmissionData, MemberType } from "../types";
+import type { UserFormEntries, MemberType } from "../types";
 import { convertToLocaleDate, getMemberTypeName } from "../utils";
 import styles from "./Step3.module.css";
 
@@ -6,7 +6,7 @@ export function Step3({
   formData,
   memberTypes,
 }: {
-  formData: Partial<FormSubmissionData> | null;
+  formData: Partial<UserFormEntries> | null;
   memberTypes: MemberType[];
 }) {
   return (
