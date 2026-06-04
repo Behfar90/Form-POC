@@ -5,7 +5,7 @@ export function Step2({
   formData,
   updateFormHandler,
 }: {
-  formData: Partial<FormSubmissionData> | null;
+  formData: Partial<FormSubmissionData>;
   updateFormHandler: (data: Partial<FormSubmissionData>) => void;
 }) {
   return (
