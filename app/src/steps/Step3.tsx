@@ -6,7 +6,7 @@ export function Step3({
   formData,
   memberTypes,
 }: {
-  formData: Partial<FormSubmissionData>;
+  formData: Partial<FormSubmissionData> | null;
   memberTypes: MemberType[];
 }) {
   return (
@@ -16,27 +16,27 @@ export function Step3({
       <div className={styles.row}>
         <span className={styles.label}>Membership type</span>
         <span className={styles.value}>
-          {formData.memberTypeId
-            ? getMemberTypeName(formData.memberTypeId, memberTypes)
+          {formData?.memberTypeId
+            ? getMemberTypeName(formData?.memberTypeId, memberTypes)
             : ""}
         </span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Name</span>
-        <span className={styles.value}>{formData.name}</span>
+        <span className={styles.value}>{formData?.name}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Email</span>
-        <span className={styles.value}>{formData.email}</span>
+        <span className={styles.value}>{formData?.email}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Phone</span>
-        <span className={styles.value}>{formData.phone}</span>
+        <span className={styles.value}>{formData?.phone}</span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Date of Birth</span>
         <span className={styles.value}>
-          {formData.birthDate ? convertToLocaleDate(formData.birthDate) : ""}
+          {formData?.birthDate ? convertToLocaleDate(formData.birthDate) : ""}
         </span>
       </div>
     </div>

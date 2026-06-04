@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type {
   FormDetails,
   Steps,
@@ -6,20 +6,18 @@ import type {
   SubmitStatus,
 } from "./types";
 import styles from "./App.module.css";
-import mockData from "../mockData.json";
 import { Loader } from "lucide-react";
 import { STEPS, SUBMIT_STATUS } from "./constants";
 import { clsx } from "clsx";
 import { Step1, Step2, Step3 } from "./steps";
 import { convertToLocaleDate } from "./utils";
-import { submitForm } from "./api";
+import { getFormDetails, submitForm } from "./api";
 
 export default function App() {
-  const [formConfig] = useState<FormDetails>(mockData as FormDetails);
+  const [formConfig, setFormConfig] = useState<FormDetails | null>(null);
   const [currentStep, setCurrentStep] = useState<Steps>(STEPS.FORM_DETAILS);
-  const [formSubmissionData, setFormSubmissionData] = useState<
-    Partial<FormSubmissionData>
-  >({ formId: formConfig.formId });
+  const [formSubmissionData, setFormSubmissionData] =
+    useState<Partial<FormSubmissionData> | null>(null);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(
     SUBMIT_STATUS.IDLE,
   );
@@ -27,6 +25,17 @@ export default function App() {
   const updateFormData = (data: Partial<FormSubmissionData>) => {
     setFormSubmissionData((prev) => ({ ...prev, ...data }));
   };
+
+  useEffect(() => {
+    getFormDetails()
+      .then((data) => {
+        setFormConfig(data);
+        updateFormData({ formId: data.formId });
+      })
+      .catch((err) => {
+        console.error("Failed to fetch form details:", err);
+      });
+  }, []);
 
   const handleSubmit = () => {
     if (currentStep === STEPS.PREVIEW) {
@@ -49,9 +58,10 @@ export default function App() {
   };
 
   const isFormComplete = (
-    data: Partial<FormSubmissionData>,
+    data: Partial<FormSubmissionData> | null,
   ): data is FormSubmissionData =>
     !!(
+      data &&
       data.formId &&
       data.memberTypeId &&
       data.name &&
