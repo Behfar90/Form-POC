@@ -10,13 +10,12 @@ import { Step1, Step2 } from "./steps";
 export default function App() {
   const [formConfig] = useState<FormDetails>(mockData as FormDetails);
   const [currentStep, setCurrentStep] = useState<Steps>(STEPS.FORM_DETAILS);
-  const [formSubmissionData, setFormSubmissionData] =
-    useState<FormSubmissionData | null>(null);
+  const [formSubmissionData, setFormSubmissionData] = useState<
+    Partial<FormSubmissionData>
+  >({ formId: formConfig.formId });
 
   const updateFormData = (data: Partial<FormSubmissionData>) => {
-    setFormSubmissionData(
-      (prev) => ({ ...prev, ...data }) as FormSubmissionData,
-    );
+    setFormSubmissionData((prev) => ({ ...prev, ...data }));
   };
 
   if (!formConfig)
@@ -60,6 +59,7 @@ export default function App() {
         onSubmit={(e) => {
           e.preventDefault();
           if (currentStep === STEPS.PREVIEW) {
+            if (!isFormComplete(formSubmissionData)) return;
             console.log("Submit form data", formSubmissionData);
           } else {
             setCurrentStep((prev) =>
