@@ -7,6 +7,7 @@ import { STEPS } from "./constants";
 import { clsx } from "clsx";
 import { Step1, Step2, Step3 } from "./steps";
 import { convertToLocaleDate } from "./utils";
+import { submitForm } from "./api";
 
 export default function App() {
   const [formConfig] = useState<FormDetails>(mockData as FormDetails);
@@ -14,6 +15,7 @@ export default function App() {
   const [formSubmissionData, setFormSubmissionData] = useState<
     Partial<FormSubmissionData>
   >({ formId: formConfig.formId });
+  const [submitStatus, setSubmitStatus] = useState<string>("idle");
 
   const updateFormData = (data: Partial<FormSubmissionData>) => {
     setFormSubmissionData((prev) => ({ ...prev, ...data }));
@@ -26,7 +28,12 @@ export default function App() {
         ...formSubmissionData,
         submittedAt: new Date().toISOString(),
       };
-      console.log("Submitting form with data:", payload);
+      submitForm(payload)
+        .then(() => setSubmitStatus("success"))
+        .catch((err) => {
+          console.error(err);
+          setSubmitStatus("error");
+        });
     } else {
       setCurrentStep((prev) =>
         prev < STEPS.PREVIEW ? ((prev + 1) as Steps) : prev,
@@ -52,6 +59,15 @@ export default function App() {
         Loading... <Loader />
       </div>
     );
+
+  if (submitStatus === "success") {
+    return (
+      <div className={styles.card}>
+        <h2>You're registered!</h2>
+        <p>Your registration for {formConfig.title} has been received.</p>
+      </div>
+    );
+  }
 
   if (new Date(formConfig.registrationOpens) > new Date()) {
     return (
