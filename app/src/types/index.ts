@@ -13,3 +13,13 @@ export interface MemberType {
 }
 
 export type Steps = (typeof STEPS)[keyof typeof STEPS];
+
+export interface FormSubmissionData {
+  formId: string;
+  memberTypeId: string;
+  name: string;
+  email: string;
+  phone: string;
+  birthDate: string;
+  submittedAt: string;
+}
