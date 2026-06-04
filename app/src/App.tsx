@@ -96,7 +96,10 @@ export default function App() {
         )}
 
         {currentStep === STEPS.PREVIEW && (
-          <Step3 formData={formSubmissionData} />
+          <Step3
+            formData={formSubmissionData}
+            memberTypes={formConfig.memberTypes}
+          />
         )}
 
         <div className={styles.buttonContainer}>

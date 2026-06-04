@@ -1,15 +1,25 @@
-import type { FormSubmissionData } from "../types";
-import { convertToLocaleDate } from "../utils";
+import type { FormSubmissionData, MemberType } from "../types";
+import { convertToLocaleDate, getMemberTypeName } from "../utils";
 import styles from "./Step3.module.css";
 
-export function Step3({ formData }: { formData: Partial<FormSubmissionData> }) {
+export function Step3({
+  formData,
+  memberTypes,
+}: {
+  formData: Partial<FormSubmissionData>;
+  memberTypes: MemberType[];
+}) {
   return (
     <div className={styles.previewContainer}>
       <p className={styles.previewHeader}>Review your details</p>
 
       <div className={styles.row}>
         <span className={styles.label}>Membership type</span>
-        <span className={styles.value}>{formData.memberTypeId}</span>
+        <span className={styles.value}>
+          {formData.memberTypeId
+            ? getMemberTypeName(formData.memberTypeId, memberTypes)
+            : ""}
+        </span>
       </div>
       <div className={styles.row}>
         <span className={styles.label}>Name</span>
