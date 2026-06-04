@@ -6,6 +6,7 @@ import { Loader } from "lucide-react";
 import { STEPS } from "./constants";
 import { clsx } from "clsx";
 import { Step1, Step2, Step3 } from "./steps";
+import { convertToLocaleDate } from "./utils";
 
 export default function App() {
   const [formConfig] = useState<FormDetails>(mockData as FormDetails);
@@ -41,9 +42,7 @@ export default function App() {
     return (
       <div className={styles.card}>
         <h2>Registration Not Open</h2>
-        <p>
-          Opens on {new Date(formConfig.registrationOpens).toLocaleDateString()}
-        </p>
+        <p>Opens on {convertToLocaleDate(formConfig.registrationOpens)}</p>
       </div>
     );
   }
