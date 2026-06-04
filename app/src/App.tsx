@@ -18,6 +18,18 @@ export default function App() {
     setFormSubmissionData((prev) => ({ ...prev, ...data }));
   };
 
+  const isFormComplete = (
+    data: Partial<FormSubmissionData>,
+  ): data is FormSubmissionData =>
+    !!(
+      data.formId &&
+      data.memberTypeId &&
+      data.name &&
+      data.email &&
+      data.phone &&
+      data.birthDate
+    );
+
   if (!formConfig)
     return (
       <div>
