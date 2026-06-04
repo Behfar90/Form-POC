@@ -57,7 +57,16 @@ export default function App() {
 
       <form
         className={styles.form}
-        onSubmit={() => console.log("Submit form data")}
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (currentStep === STEPS.PREVIEW) {
+            console.log("Submit form data", formSubmissionData);
+          } else {
+            setCurrentStep((prev) =>
+              prev < STEPS.PREVIEW ? ((prev + 1) as Steps) : prev,
+            );
+          }
+        }}
       >
         {currentStep === STEPS.FORM_DETAILS && (
           <Step1
@@ -89,17 +98,7 @@ export default function App() {
           >
             Back
           </button>
-          <button
-            type="button"
-            className={styles.button}
-            disabled={!formSubmissionData}
-            onClick={() => {
-              console.log("formSubmissionData", formSubmissionData);
-              setCurrentStep((prev) =>
-                prev < STEPS.PREVIEW ? ((prev + 1) as Steps) : prev,
-              );
-            }}
-          >
+          <button type="submit" className={styles.button}>
             {currentStep === STEPS.PREVIEW ? "Submit" : "Next"}
           </button>
         </div>
