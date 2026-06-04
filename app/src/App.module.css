@@ -1,0 +1,50 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  width: 100%;
+  max-width: 500px;
+  min-height: 400px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+  }
+  .formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
