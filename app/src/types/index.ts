@@ -1,4 +1,4 @@
-import { STEPS } from "../constants";
+import { STEPS, SUBMIT_STATUS } from "../constants";
 export interface FormDetails {
   clubId: string;
   memberTypes: MemberType[];
@@ -23,3 +23,5 @@ export interface FormSubmissionData {
   birthDate: string;
   submittedAt: string;
 }
+
+export type SubmitStatus = (typeof SUBMIT_STATUS)[keyof typeof SUBMIT_STATUS];

@@ -1,9 +1,14 @@
 import { useState } from "react";
-import type { FormDetails, Steps, FormSubmissionData } from "./types";
+import type {
+  FormDetails,
+  Steps,
+  FormSubmissionData,
+  SubmitStatus,
+} from "./types";
 import styles from "./App.module.css";
 import mockData from "../mockData.json";
 import { Loader } from "lucide-react";
-import { STEPS } from "./constants";
+import { STEPS, SUBMIT_STATUS } from "./constants";
 import { clsx } from "clsx";
 import { Step1, Step2, Step3 } from "./steps";
 import { convertToLocaleDate } from "./utils";
@@ -15,7 +20,9 @@ export default function App() {
   const [formSubmissionData, setFormSubmissionData] = useState<
     Partial<FormSubmissionData>
   >({ formId: formConfig.formId });
-  const [submitStatus, setSubmitStatus] = useState<string>("idle");
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(
+    SUBMIT_STATUS.IDLE,
+  );
 
   const updateFormData = (data: Partial<FormSubmissionData>) => {
     setFormSubmissionData((prev) => ({ ...prev, ...data }));
@@ -29,10 +36,10 @@ export default function App() {
         submittedAt: new Date().toISOString(),
       };
       submitForm(payload)
-        .then(() => setSubmitStatus("success"))
+        .then(() => setSubmitStatus(SUBMIT_STATUS.SUCCESS))
         .catch((err) => {
           console.error(err);
-          setSubmitStatus("error");
+          setSubmitStatus(SUBMIT_STATUS.ERROR);
         });
     } else {
       setCurrentStep((prev) =>
@@ -60,7 +67,7 @@ export default function App() {
       </div>
     );
 
-  if (submitStatus === "success") {
+  if (submitStatus === SUBMIT_STATUS.SUCCESS) {
     return (
       <div className={styles.card}>
         <h2>You're registered!</h2>
