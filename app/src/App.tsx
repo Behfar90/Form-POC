@@ -76,6 +76,18 @@ export default function App() {
     );
   }
 
+  if (submitStatus === SUBMIT_STATUS.ERROR) {
+    return (
+      <div className={styles.card}>
+        <h2>Submission Failed</h2>
+        <p>
+          There was an error submitting your registration. Please try again
+          later.
+        </p>
+      </div>
+    );
+  }
+
   if (new Date(formConfig.registrationOpens) > new Date()) {
     return (
       <div className={styles.card}>
