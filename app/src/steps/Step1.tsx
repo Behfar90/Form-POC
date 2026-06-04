@@ -5,9 +5,11 @@ import styles from "./Step1.module.css";
 export function Step1({
   formConfig,
   updateFormHandler,
+  membershipId,
 }: {
   formConfig: FormDetails;
   updateFormHandler: (data: Partial<FormSubmissionData>) => void;
+  membershipId?: FormSubmissionData["memberTypeId"];
 }) {
   return (
     <div className={styles.formGrid}>
@@ -19,8 +21,9 @@ export function Step1({
             <input
               type="radio"
               name="memberType"
-              required
               onChange={() => updateFormHandler({ memberTypeId: type.id })}
+              checked={type.id === membershipId}
+              required
             />{" "}
             {type.name}
           </label>

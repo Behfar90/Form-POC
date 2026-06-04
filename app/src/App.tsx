@@ -60,7 +60,11 @@ export default function App() {
         onSubmit={() => console.log("Submit form data")}
       >
         {currentStep === STEPS.FORM_DETAILS && (
-          <Step1 formConfig={formConfig} updateFormHandler={updateFormData} />
+          <Step1
+            formConfig={formConfig}
+            updateFormHandler={updateFormData}
+            membershipId={formSubmissionData?.memberTypeId}
+          />
         )}
 
         {currentStep === STEPS.USER_INFO && <div>Step 2</div>}
@@ -80,7 +84,17 @@ export default function App() {
           >
             Back
           </button>
-          <button type="button" className={styles.button}>
+          <button
+            type="button"
+            className={styles.button}
+            disabled={!formSubmissionData}
+            onClick={() => {
+              console.log("formSubmissionData", formSubmissionData);
+              setCurrentStep((prev) =>
+                prev < STEPS.PREVIEW ? ((prev + 1) as Steps) : prev,
+              );
+            }}
+          >
             {currentStep === STEPS.PREVIEW ? "Submit" : "Next"}
           </button>
         </div>
