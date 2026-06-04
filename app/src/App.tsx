@@ -19,6 +19,21 @@ export default function App() {
     setFormSubmissionData((prev) => ({ ...prev, ...data }));
   };
 
+  const handleSubmit = () => {
+    if (currentStep === STEPS.PREVIEW) {
+      if (!isFormComplete(formSubmissionData)) return;
+      const payload = {
+        ...formSubmissionData,
+        submittedAt: new Date().toISOString(),
+      };
+      console.log("Submitting form with data:", payload);
+    } else {
+      setCurrentStep((prev) =>
+        prev < STEPS.PREVIEW ? ((prev + 1) as Steps) : prev,
+      );
+    }
+  };
+
   const isFormComplete = (
     data: Partial<FormSubmissionData>,
   ): data is FormSubmissionData =>
@@ -69,14 +84,7 @@ export default function App() {
         className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();
-          if (currentStep === STEPS.PREVIEW) {
-            if (!isFormComplete(formSubmissionData)) return;
-            console.log("Submit form data", formSubmissionData);
-          } else {
-            setCurrentStep((prev) =>
-              prev < STEPS.PREVIEW ? ((prev + 1) as Steps) : prev,
-            );
-          }
+          handleSubmit();
         }}
       >
         <div className={styles.stepContent}>
