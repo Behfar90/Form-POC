@@ -80,27 +80,29 @@ export default function App() {
           }
         }}
       >
-        {currentStep === STEPS.FORM_DETAILS && (
-          <Step1
-            formConfig={formConfig}
-            updateFormHandler={updateFormData}
-            membershipId={formSubmissionData?.memberTypeId}
-          />
-        )}
+        <div className={styles.stepContent}>
+          {currentStep === STEPS.FORM_DETAILS && (
+            <Step1
+              formConfig={formConfig}
+              updateFormHandler={updateFormData}
+              membershipId={formSubmissionData?.memberTypeId}
+            />
+          )}
 
-        {currentStep === STEPS.USER_INFO && (
-          <Step2
-            formData={formSubmissionData}
-            updateFormHandler={updateFormData}
-          />
-        )}
+          {currentStep === STEPS.USER_INFO && (
+            <Step2
+              formData={formSubmissionData}
+              updateFormHandler={updateFormData}
+            />
+          )}
 
-        {currentStep === STEPS.PREVIEW && (
-          <Step3
-            formData={formSubmissionData}
-            memberTypes={formConfig.memberTypes}
-          />
-        )}
+          {currentStep === STEPS.PREVIEW && (
+            <Step3
+              formData={formSubmissionData}
+              memberTypes={formConfig.memberTypes}
+            />
+          )}
+        </div>
 
         <div className={styles.buttonContainer}>
           <button
