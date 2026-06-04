@@ -5,7 +5,7 @@ import mockData from "../mockData.json";
 import { Loader } from "lucide-react";
 import { STEPS } from "./constants";
 import { clsx } from "clsx";
-import { Step1 } from "./steps";
+import { Step1, Step2 } from "./steps";
 
 export default function App() {
   const [formConfig] = useState<FormDetails>(mockData as FormDetails);
@@ -67,7 +67,12 @@ export default function App() {
           />
         )}
 
-        {currentStep === STEPS.USER_INFO && <div>Step 2</div>}
+        {currentStep === STEPS.USER_INFO && (
+          <Step2
+            formData={formSubmissionData}
+            updateFormHandler={updateFormData}
+          />
+        )}
 
         {currentStep === STEPS.PREVIEW && <div>Step 3</div>}
 
