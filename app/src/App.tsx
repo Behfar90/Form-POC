@@ -13,6 +13,7 @@ import { clsx } from "clsx";
 import { Step1, Step2, Step3 } from "./steps";
 import { convertToLocaleDate } from "./utils";
 import { getFormDetails, submitForm } from "./api";
+import { Banner } from "./components/Banner";
 
 export default function App() {
   const [formConfig, setFormConfig] = useState<FormDetails | null>(null);
@@ -80,8 +81,11 @@ export default function App() {
   if (submitStatus === SUBMIT_STATUS.SUCCESS) {
     return (
       <div className={styles.card}>
-        <h2>You're registered!</h2>
-        <p>Your registration for {formConfig.title} has been received.</p>
+        <Banner
+          variant="success"
+          title="You're registered!"
+          message={`Your registration for ${formConfig.title} has been received.`}
+        />
       </div>
     );
   }
@@ -89,11 +93,11 @@ export default function App() {
   if (submitStatus === SUBMIT_STATUS.ERROR) {
     return (
       <div className={styles.card}>
-        <h2>Submission Failed</h2>
-        <p>
-          There was an error submitting your registration. Please try again
-          later.
-        </p>
+        <Banner
+          variant="error"
+          title="Submission Failed"
+          message="There was an error submitting your registration. Please try again later."
+        />
       </div>
     );
   }
@@ -101,8 +105,11 @@ export default function App() {
   if (new Date(formConfig.registrationOpens) > new Date()) {
     return (
       <div className={styles.card}>
-        <h2>Registration Not Open</h2>
-        <p>Opens on {convertToLocaleDate(formConfig.registrationOpens)}</p>
+        <Banner
+          variant="info"
+          title="Registration Not Open"
+          message={`Opens on ${convertToLocaleDate(formConfig.registrationOpens)}`}
+        />
       </div>
     );
   }
