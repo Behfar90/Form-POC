@@ -20,6 +20,7 @@ func main() {
 	}))
 
 	app.Get("/form-details", handlers.GetFormDetails)
+	app.Post("/registrations", handlers.PostRegistration)
 
 	log.Fatal(app.Listen(":8080"))
 }
