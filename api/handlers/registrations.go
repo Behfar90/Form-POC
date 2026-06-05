@@ -64,14 +64,13 @@ func PostRegistration(c *fiber.Ctx) error {
 		registration.BirthDate,
 		registration.SubmittedAt,
 	)
-		if err != nil {
+	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": "Failed to save registration",
 		})
 	}
 
-	return c.JSON(fiber.Map{
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "Registration successful",
 	})
 }
-	
