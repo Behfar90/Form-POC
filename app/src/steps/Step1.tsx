@@ -15,19 +15,22 @@ export function Step1({
     <div className={styles.formGrid}>
       <p>{FormDescription}</p>
 
-      <div className={styles.memberTypes}>
-        {formConfig.memberTypes.map((type) => (
-          <label key={type.id}>
-            <input
-              type="radio"
-              name="memberType"
-              onChange={() => updateFormHandler({ memberTypeId: type.id })}
-              checked={type.id === membershipId}
-              required
-            />{" "}
-            {type.name}
-          </label>
-        ))}
+      <div>
+        <p className={styles.memberTypesLabel}>Choose your membership type:</p>
+        <div className={styles.memberTypes}>
+          {formConfig.memberTypes.map((type) => (
+            <label key={type.id}>
+              <input
+                type="radio"
+                name="memberType"
+                onChange={() => updateFormHandler({ memberTypeId: type.id })}
+                checked={type.id === membershipId}
+                required
+              />{" "}
+              {type.name}
+            </label>
+          ))}
+        </div>
       </div>
     </div>
   );
