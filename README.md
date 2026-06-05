@@ -149,6 +149,7 @@ make start-app   # Frontend on http://localhost:5173
 - **Email confirmation** — send a confirmation email on successful registration
 - **Phone number validation** — add client-side validation for the phone number field using a third-party library like `libphonenumber-js`
 - **Improved user-input handling** — provide more user-friendly hints/messages on Step 2 user inputs (instead of a bad pattern block).
+- **Automated tests** — add unit and integration tests for both frontend and backend, especially for users form handling and critical paths like form submission and database interactions (which I unfortunately didn't have time to cover in this POC)
 
 ---
 
