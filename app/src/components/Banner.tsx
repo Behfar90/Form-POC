@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { CheckCircle, XCircle, Clock } from "lucide-react";
+import { CheckCircle, XCircle, Clock, Loader } from "lucide-react";
 import { clsx } from "clsx";
 import styles from "./Banner.module.css";
 import type { BannerVariant } from "../types";
@@ -8,6 +8,7 @@ const ICONS: Record<BannerVariant, ReactNode> = {
   success: <CheckCircle size={48} />,
   error: <XCircle size={48} />,
   info: <Clock size={48} />,
+  loading: <Loader size={48} />,
 };
 
 export function Banner({

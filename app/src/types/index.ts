@@ -31,4 +31,4 @@ export type UserFormEntries = Omit<
 
 export type SubmitStatus = (typeof SUBMIT_STATUS)[keyof typeof SUBMIT_STATUS];
 
-export type BannerVariant = "success" | "error" | "info";
+export type BannerVariant = "success" | "error" | "info" | "loading";

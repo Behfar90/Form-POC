@@ -7,7 +7,6 @@ import type {
   SubmitStatus,
 } from "./types";
 import styles from "./App.module.css";
-import { Loader } from "lucide-react";
 import { STEPS, SUBMIT_STATUS } from "./constants";
 import { clsx } from "clsx";
 import { Step1, Step2, Step3 } from "./steps";
@@ -23,6 +22,7 @@ export default function App() {
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(
     SUBMIT_STATUS.IDLE,
   );
+  const [fetchError, setFetchError] = useState(false);
 
   const updateFormData = (data: Partial<UserFormEntries>) => {
     setFormEntries((prev) => ({ ...prev, ...data }));
@@ -30,11 +30,10 @@ export default function App() {
 
   useEffect(() => {
     getFormDetails()
-      .then((data) => {
-        setFormConfig(data);
-      })
+      .then((data) => setFormConfig(data))
       .catch((err) => {
         console.error("Failed to fetch form details:", err);
+        setFetchError(true);
       });
   }, []);
 
@@ -71,10 +70,21 @@ export default function App() {
       data.birthDate
     );
 
+  if (fetchError)
+    return (
+      <div className={styles.card}>
+        <Banner
+          variant="error"
+          title="Failed to load form"
+          message="Could not reach the server. Please try again later."
+        />
+      </div>
+    );
+
   if (!formConfig)
     return (
-      <div>
-        Loading... <Loader />
+      <div className={styles.card}>
+        <Banner variant="loading" title="Loading..." message="" />
       </div>
     );
 

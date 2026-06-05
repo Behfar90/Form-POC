@@ -36,3 +36,16 @@
 .info .title {
   color: var(--color-primary);
 }
+
+.loading .icon,
+.loading .title {
+  color: var(--color-disabled);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading .icon {
+  animation: spin 1s linear infinite;
+}
