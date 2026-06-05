@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	_ "modernc.org/sqlite"
 )
@@ -10,8 +11,13 @@ import (
 var DB *sql.DB
 
 func init() {
+	dbPath := os.Getenv("DB_PATH")
+	if dbPath == "" {
+		dbPath = "./registrations.db"
+	}
+
 	var err error
-	DB, err = sql.Open("sqlite", "./registrations.db")
+	DB, err = sql.Open("sqlite", dbPath)
 	if err != nil {
 		log.Fatalf("failed to open database: %v", err)
 	}
