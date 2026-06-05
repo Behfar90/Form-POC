@@ -10,6 +10,7 @@ import (
 )
 
 var (
+	nameRegex  = regexp.MustCompile(`^[A-Za-z]+ [A-Za-z]+$`)
 	emailRegex = regexp.MustCompile(`^[^@\s]+@[^@\s]+\.[^@\s]+$`)
 	phoneRegex = regexp.MustCompile(`^\+?[0-9]+$`)
 )
@@ -21,8 +22,8 @@ func validate(r models.Registration) string {
 	if r.MemberTypeID == "" {
 		return "memberTypeId is required"
 	}
-	if r.Name == "" {
-		return "name is required"
+	if !nameRegex.MatchString(r.Name) {
+		return "name must contain a first and last name with letters only"
 	}
 	if !emailRegex.MatchString(r.Email) {
 		return "email is invalid"
@@ -30,8 +31,16 @@ func validate(r models.Registration) string {
 	if !phoneRegex.MatchString(r.Phone) {
 		return "phone must contain only numbers and an optional leading +"
 	}
-	if _, err := time.Parse(time.RFC3339, r.BirthDate); err != nil {
+	birthDate, err := time.Parse(time.RFC3339, r.BirthDate)
+	if err != nil {
 		return "birthDate must be a valid ISO 8601 date"
+	}
+	now := time.Now().UTC()
+	if birthDate.After(now) {
+		return "birthDate cannot be in the future"
+	}
+	if birthDate.Before(now.AddDate(-150, 0, 0)) {
+		return "birthDate cannot be more than 150 years ago"
 	}
 	if _, err := time.Parse(time.RFC3339, r.SubmittedAt); err != nil {
 		return "submittedAt must be a valid ISO 8601 date"
