@@ -40,6 +40,10 @@
   cursor: pointer;
 }
 
+.submitButton {
+  background: var(--color-success);
+}
+
 .button:disabled {
   background: var(--color-disabled);
   cursor: not-allowed;

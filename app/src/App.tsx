@@ -186,7 +186,13 @@ export default function App() {
           >
             Back
           </button>
-          <button type="submit" className={styles.button}>
+          <button
+            type="submit"
+            className={clsx(
+              styles.button,
+              currentStep === STEPS.PREVIEW && styles.submitButton,
+            )}
+          >
             {currentStep === STEPS.PREVIEW ? "Submit" : "Next"}
           </button>
         </div>
