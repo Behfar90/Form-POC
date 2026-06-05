@@ -24,12 +24,12 @@
 
 .success .icon,
 .success .title {
-  color: #16a34a;
+  color: var(--color-success);
 }
 
 .error .icon,
 .error .title {
-  color: #dc2626;
+  color: var(--color-error);
 }
 
 .info .icon,
