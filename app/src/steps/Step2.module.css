@@ -28,3 +28,8 @@
 .input:focus {
   border-color: var(--color-primary);
 }
+
+.hint {
+  font-size: 0.75rem;
+  color: var(--color-disabled);
+}
